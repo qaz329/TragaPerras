@@ -28,10 +28,13 @@ public class Maquina extends javax.swing.JFrame {
     public int y = 0;
 
     public int aposta = 1;
-    public int credits = 200;
+    public int credits = 10;
+    public int reserva = 190;
     public int n1 = 8;
     public int n2 = 8;
     public int n3 = 8;
+    public float premi = 0;
+    public float bank = 0;
     
     public Maquina() {
         initComponents();
@@ -49,11 +52,11 @@ public class Maquina extends javax.swing.JFrame {
         pnl_superior = new javax.swing.JPanel();
         pnl_close = new javax.swing.JPanel();
         lbl_close = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tf_bank = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         pnl_inferior = new javax.swing.JPanel();
-        tf_price = new javax.swing.JTextField();
+        tf_premi = new javax.swing.JTextField();
         tf_credits = new javax.swing.JTextField();
         tf_reserva = new javax.swing.JTextField();
         tf_relleno2 = new javax.swing.JTextField();
@@ -125,16 +128,16 @@ public class Maquina extends javax.swing.JFrame {
                 .addGap(0, 19, Short.MAX_VALUE))
         );
 
-        jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(0, 0, 0));
-        jTextField1.setFont(getFont("DIGITAL",48));
-        jTextField1.setForeground(new java.awt.Color(204, 0, 0));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField1.setText("0");
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 0), 2));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tf_bank.setEditable(false);
+        tf_bank.setBackground(new java.awt.Color(0, 0, 0));
+        tf_bank.setFont(getFont("DIGITAL",48));
+        tf_bank.setForeground(new java.awt.Color(204, 0, 0));
+        tf_bank.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tf_bank.setText("0,00");
+        tf_bank.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 0), 2));
+        tf_bank.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tf_bankActionPerformed(evt);
             }
         });
 
@@ -160,7 +163,7 @@ public class Maquina extends javax.swing.JFrame {
                 .addGroup(pnl_superiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnl_close, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_superiorLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tf_bank, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))))
         );
         pnl_superiorLayout.setVerticalGroup(
@@ -168,7 +171,7 @@ public class Maquina extends javax.swing.JFrame {
             .addGroup(pnl_superiorLayout.createSequentialGroup()
                 .addComponent(pnl_close, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tf_bank, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 42, Short.MAX_VALUE))
             .addGroup(pnl_superiorLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
@@ -190,17 +193,17 @@ public class Maquina extends javax.swing.JFrame {
             }
         });
 
-        tf_price.setEditable(false);
-        tf_price.setBackground(new java.awt.Color(0, 0, 0));
-        tf_price.setFont(getFont("DIGITAL",48));
-        tf_price.setForeground(new java.awt.Color(204, 0, 0));
-        tf_price.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tf_price.setText("0");
-        tf_price.setBorder(null);
-        tf_price.setFocusable(false);
-        tf_price.addActionListener(new java.awt.event.ActionListener() {
+        tf_premi.setEditable(false);
+        tf_premi.setBackground(new java.awt.Color(0, 0, 0));
+        tf_premi.setFont(getFont("DIGITAL",48));
+        tf_premi.setForeground(new java.awt.Color(204, 0, 0));
+        tf_premi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_premi.setText("0,00");
+        tf_premi.setBorder(null);
+        tf_premi.setFocusable(false);
+        tf_premi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_priceActionPerformed(evt);
+                tf_premiActionPerformed(evt);
             }
         });
 
@@ -209,7 +212,7 @@ public class Maquina extends javax.swing.JFrame {
         tf_credits.setFont(getFont("DIGITAL",48));
         tf_credits.setForeground(new java.awt.Color(204, 0, 0));
         tf_credits.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tf_credits.setText(""+(credits-(credits-10)));
+        tf_credits.setText(""+credits);
         tf_credits.setBorder(null);
         tf_credits.setFocusable(false);
         tf_credits.addActionListener(new java.awt.event.ActionListener() {
@@ -223,7 +226,7 @@ public class Maquina extends javax.swing.JFrame {
         tf_reserva.setFont(getFont("DIGITAL",48));
         tf_reserva.setForeground(new java.awt.Color(204, 0, 0));
         tf_reserva.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tf_reserva.setText(""+(credits-10));
+        tf_reserva.setText(""+reserva);
         tf_reserva.setBorder(null);
         tf_reserva.setFocusable(false);
         tf_reserva.addActionListener(new java.awt.event.ActionListener() {
@@ -534,7 +537,7 @@ public class Maquina extends javax.swing.JFrame {
                         .addGap(0, 0, 0)
                         .addComponent(tf_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(tf_price, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tf_premi, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(tf_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -576,7 +579,7 @@ public class Maquina extends javax.swing.JFrame {
                 .addGap(3, 3, 3)
                 .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tf_price, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tf_premi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tf_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tf_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tf_relleno2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -662,11 +665,11 @@ public class Maquina extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_pnl_closeMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void tf_bankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_bankActionPerformed
+    }//GEN-LAST:event_tf_bankActionPerformed
 
-    private void tf_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_priceActionPerformed
-    }//GEN-LAST:event_tf_priceActionPerformed
+    private void tf_premiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_premiActionPerformed
+    }//GEN-LAST:event_tf_premiActionPerformed
 
     private void tf_creditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_creditsActionPerformed
     }//GEN-LAST:event_tf_creditsActionPerformed
@@ -730,22 +733,72 @@ public class Maquina extends javax.swing.JFrame {
     }//GEN-LAST:event_pnl_btnApostaMouseClicked
 
     private void pnl_btnGirarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_btnGirarMouseClicked
-        girar();
-        comprovar();
+        
+            restaCredit();
+            bank += premi;
+            tf_bank.setText(String.format("%.2f", bank));
+            premi = 0;
+            tf_premi.setText(String.format("%.2f", premi));
+            girar();
+            donarPremi();
+        
     }//GEN-LAST:event_pnl_btnGirarMouseClicked
 
-    private void comprovar() {
-        if(n1 == n2 && n1 == n3){
-            if(aposta == 1){
-                
-            }else if(aposta == 3){
-                
+    public void restaCredit(){
+        //TODO restar credits quan credit es mes petit que aposta pero hi ha reserva
+        if(credits == 0){
+            if(reserva >= 10){
+                reserva -= 10;
+                tf_reserva.setText(""+reserva);
+                credits = 10;
             }else{
-                
+                if(bank >= 0.2){
+                    bank -= 0.2*aposta;
+                    tf_bank.setText(String.format("%.2f", bank));
+                    credits += aposta;
+                }else{
+                    //TODO no credits
+                }
             }
+            tf_credits.setText(""+credits);
         }
+        credits -= aposta;
+        tf_credits.setText(""+credits);
+        
     }
     
+    public void donarPremi(){
+        if(n1 == n2 && n1 == n3){
+            switch(n1){
+                case 1:
+                    premi = (float)(0.4 * aposta);
+                    break;
+                case 2:
+                    premi = (float)(0.8 * aposta);
+                    break;
+                case 3:
+                    premi = (float)(1.6 * aposta);
+                    break;
+                case 4:
+                    premi = (float)(2.4 * aposta);
+                    break;
+                case 5:
+                    premi = (float)(3.2 * aposta);
+                    break;
+                case 6:
+                    premi = (float)(4.0 * aposta);
+                    break;
+                case 7:
+                    premi = (float)(10.0 * aposta);
+                    break;
+                case 8:
+                    premi = (float)(20.0 * aposta);
+                    break;
+            }
+            tf_premi.setText(String.format("%.2f", premi));
+        }
+    }
+        
     public void girar(){
         n1 = randNum();
         n2 = randNum();
@@ -849,7 +902,6 @@ public class Maquina extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbl_aposta;
     private javax.swing.JLabel lbl_btnAposta;
     private javax.swing.JLabel lbl_btnAposta1;
@@ -872,8 +924,9 @@ public class Maquina extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_inferior;
     private javax.swing.JPanel pnl_superior;
     private javax.swing.JTextField tf_aposta;
+    private javax.swing.JTextField tf_bank;
     private javax.swing.JTextField tf_credits;
-    private javax.swing.JTextField tf_price;
+    private javax.swing.JTextField tf_premi;
     private javax.swing.JTextField tf_relleno;
     private javax.swing.JTextField tf_relleno2;
     private javax.swing.JTextField tf_relleno3;
