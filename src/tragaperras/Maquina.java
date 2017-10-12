@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import static java.lang.Integer.max;
+import java.util.concurrent.ThreadLocalRandom;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -25,10 +27,14 @@ public class Maquina extends javax.swing.JFrame {
     public int x = 0;
     public int y = 0;
 
+    public int aposta = 1;
+    public int credits = 200;
+    public int n1 = 8;
+    public int n2 = 8;
+    public int n3 = 8;
+    
     public Maquina() {
-        this.setUndecorated(true);
         initComponents();
-
     }
 
     /**
@@ -63,9 +69,20 @@ public class Maquina extends javax.swing.JFrame {
         lbl_img3 = new javax.swing.JLabel();
         pnl_fons2 = new javax.swing.JPanel();
         lbl_img2 = new javax.swing.JLabel();
+        tf_relleno4 = new javax.swing.JTextField();
+        tf_aposta = new javax.swing.JTextField();
+        tf_relleno5 = new javax.swing.JTextField();
+        tf_relleno6 = new javax.swing.JTextField();
+        lbl_aposta = new javax.swing.JLabel();
+        pnl_btnAposta = new javax.swing.JPanel();
+        lbl_btnAposta = new javax.swing.JLabel();
+        pnl_btnGirar = new javax.swing.JPanel();
+        lbl_btnGirar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(650, 800));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(660, 786));
+        setResizable(false);
 
         pnl_superior.setBackground(new java.awt.Color(0, 153, 51));
         pnl_superior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 0)));
@@ -135,11 +152,11 @@ public class Maquina extends javax.swing.JFrame {
         pnl_superiorLayout.setHorizontalGroup(
             pnl_superiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_superiorLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(54, 54, 54)
                 .addGroup(pnl_superiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                 .addGroup(pnl_superiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnl_close, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_superiorLayout.createSequentialGroup()
@@ -192,7 +209,7 @@ public class Maquina extends javax.swing.JFrame {
         tf_credits.setFont(getFont("DIGITAL",48));
         tf_credits.setForeground(new java.awt.Color(204, 0, 0));
         tf_credits.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tf_credits.setText("0");
+        tf_credits.setText(""+(credits-(credits-10)));
         tf_credits.setBorder(null);
         tf_credits.setFocusable(false);
         tf_credits.addActionListener(new java.awt.event.ActionListener() {
@@ -206,7 +223,7 @@ public class Maquina extends javax.swing.JFrame {
         tf_reserva.setFont(getFont("DIGITAL",48));
         tf_reserva.setForeground(new java.awt.Color(204, 0, 0));
         tf_reserva.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tf_reserva.setText("0");
+        tf_reserva.setText(""+(credits-10));
         tf_reserva.setBorder(null);
         tf_reserva.setFocusable(false);
         tf_reserva.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +292,7 @@ public class Maquina extends javax.swing.JFrame {
 
         lbl_img1.setBackground(new java.awt.Color(255, 255, 255));
         lbl_img1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_img1.setIcon(resizeImg("Cherries",118,118));
+        lbl_img1.setIcon(resizeImg("Seven",118,118));
         lbl_img1.setFocusable(false);
         lbl_img1.setOpaque(true);
 
@@ -300,7 +317,7 @@ public class Maquina extends javax.swing.JFrame {
 
         lbl_img3.setBackground(new java.awt.Color(255, 255, 255));
         lbl_img3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_img3.setIcon(resizeImg("Cherries",118,118));
+        lbl_img3.setIcon(resizeImg("Seven",118,118));
         lbl_img3.setFocusable(false);
         lbl_img3.setOpaque(true);
 
@@ -325,7 +342,7 @@ public class Maquina extends javax.swing.JFrame {
 
         lbl_img2.setBackground(new java.awt.Color(255, 255, 255));
         lbl_img2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_img2.setIcon(resizeImg("Cherries",118,118));
+        lbl_img2.setIcon(resizeImg("Seven",118,118));
         lbl_img2.setFocusable(false);
         lbl_img2.setOpaque(true);
 
@@ -370,36 +387,182 @@ public class Maquina extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
+        tf_relleno4.setEditable(false);
+        tf_relleno4.setBackground(new java.awt.Color(0, 0, 0));
+        tf_relleno4.setFont(getFont("DIGITAL",48));
+        tf_relleno4.setForeground(new java.awt.Color(204, 0, 0));
+        tf_relleno4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tf_relleno4.setBorder(null);
+        tf_relleno4.setFocusable(false);
+        tf_relleno4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_relleno4ActionPerformed(evt);
+            }
+        });
+
+        tf_aposta.setEditable(false);
+        tf_aposta.setBackground(new java.awt.Color(0, 0, 0));
+        tf_aposta.setFont(getFont("DIGITAL",48));
+        tf_aposta.setForeground(new java.awt.Color(204, 0, 0));
+        tf_aposta.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tf_aposta.setText(""+aposta);
+        tf_aposta.setBorder(null);
+        tf_aposta.setFocusable(false);
+        tf_aposta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_apostaActionPerformed(evt);
+            }
+        });
+
+        tf_relleno5.setEditable(false);
+        tf_relleno5.setBackground(new java.awt.Color(0, 0, 0));
+        tf_relleno5.setFont(getFont("DIGITAL",48));
+        tf_relleno5.setForeground(new java.awt.Color(204, 0, 0));
+        tf_relleno5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_relleno5.setBorder(null);
+        tf_relleno5.setFocusable(false);
+        tf_relleno5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_relleno5ActionPerformed(evt);
+            }
+        });
+
+        tf_relleno6.setEditable(false);
+        tf_relleno6.setBackground(new java.awt.Color(0, 0, 0));
+        tf_relleno6.setFont(getFont("DIGITAL",48));
+        tf_relleno6.setForeground(new java.awt.Color(204, 0, 0));
+        tf_relleno6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tf_relleno6.setBorder(null);
+        tf_relleno6.setFocusable(false);
+        tf_relleno6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_relleno6ActionPerformed(evt);
+            }
+        });
+
+        lbl_aposta.setFont(getFont("BALLS",42,0));
+        lbl_aposta.setForeground(new java.awt.Color(0, 153, 51));
+        lbl_aposta.setText("Aposta");
+        lbl_aposta.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        pnl_btnAposta.setBackground(new java.awt.Color(0, 153, 51));
+        pnl_btnAposta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnl_btnApostaMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnl_btnApostaMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                pnl_btnApostaMouseReleased(evt);
+            }
+        });
+
+        lbl_btnAposta.setFont(getFont("BALLS",35,1));
+        lbl_btnAposta.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_btnAposta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_btnAposta.setText("Aposta");
+
+        javax.swing.GroupLayout pnl_btnApostaLayout = new javax.swing.GroupLayout(pnl_btnAposta);
+        pnl_btnAposta.setLayout(pnl_btnApostaLayout);
+        pnl_btnApostaLayout.setHorizontalGroup(
+            pnl_btnApostaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_btnApostaLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(lbl_btnAposta, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        pnl_btnApostaLayout.setVerticalGroup(
+            pnl_btnApostaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_btnApostaLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(lbl_btnAposta, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pnl_btnGirar.setBackground(new java.awt.Color(0, 153, 51));
+        pnl_btnGirar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnl_btnGirarMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnl_btnGirarMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                pnl_btnGirarMouseReleased(evt);
+            }
+        });
+
+        lbl_btnGirar.setFont(getFont("BALLS",70,1));
+        lbl_btnGirar.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_btnGirar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_btnGirar.setText("Gira!");
+
+        javax.swing.GroupLayout pnl_btnGirarLayout = new javax.swing.GroupLayout(pnl_btnGirar);
+        pnl_btnGirar.setLayout(pnl_btnGirarLayout);
+        pnl_btnGirarLayout.setHorizontalGroup(
+            pnl_btnGirarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_btnGirarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_btnGirar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnl_btnGirarLayout.setVerticalGroup(
+            pnl_btnGirarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_btnGirarLayout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(lbl_btnGirar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
         javax.swing.GroupLayout pnl_inferiorLayout = new javax.swing.GroupLayout(pnl_inferior);
         pnl_inferior.setLayout(pnl_inferiorLayout);
         pnl_inferiorLayout.setHorizontalGroup(
             pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                        .addComponent(lbl_reserva)
+                        .addGap(22, 22, 22)
+                        .addComponent(lbl_premi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_credits))
+                    .addComponent(tf_relleno3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                        .addComponent(tf_relleno, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(tf_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(tf_price, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(tf_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(tf_relleno2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_inferiorLayout.createSequentialGroup()
-                        .addGap(144, 144, 144)
+                        .addGap(98, 98, 98)
+                        .addComponent(lbl_aposta))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_inferiorLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnl_inferiorLayout.createSequentialGroup()
-                                .addComponent(lbl_reserva)
-                                .addGap(22, 22, 22)
-                                .addComponent(lbl_premi)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbl_credits))
-                            .addComponent(tf_relleno3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnl_inferiorLayout.createSequentialGroup()
-                                .addComponent(tf_relleno, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tf_relleno6, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
-                                .addComponent(tf_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tf_aposta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
-                                .addComponent(tf_price, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(tf_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(tf_relleno2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tf_relleno4))
+                            .addComponent(tf_relleno5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(75, 75, 75))))
+            .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnl_inferiorLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(pnl_fons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(pnl_btnAposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnl_btnGirar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnl_fons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         pnl_inferiorLayout.setVerticalGroup(
             pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,19 +571,32 @@ public class Maquina extends javax.swing.JFrame {
                 .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbl_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_premi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_aposta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
-                .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_price, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_relleno2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_relleno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addComponent(tf_relleno3, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tf_price, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tf_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tf_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tf_relleno2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tf_relleno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                        .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_aposta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_relleno4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_relleno6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, 0)))
+                .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tf_relleno5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(tf_relleno3, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(pnl_fons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnl_btnAposta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnl_btnGirar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -513,6 +689,153 @@ public class Maquina extends javax.swing.JFrame {
     private void pnl_inferiorMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_inferiorMouseDragged
     }//GEN-LAST:event_pnl_inferiorMouseDragged
 
+    private void tf_relleno4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_relleno4ActionPerformed
+    }//GEN-LAST:event_tf_relleno4ActionPerformed
+
+    private void tf_apostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_apostaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_apostaActionPerformed
+
+    private void tf_relleno5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_relleno5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_relleno5ActionPerformed
+
+    private void tf_relleno6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_relleno6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_relleno6ActionPerformed
+
+    private void pnl_btnGirarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_btnGirarMousePressed
+        pnl_btnGirar.setBackground(new java.awt.Color(0, 102, 51));
+    }//GEN-LAST:event_pnl_btnGirarMousePressed
+
+    private void pnl_btnGirarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_btnGirarMouseReleased
+        pnl_btnGirar.setBackground(new java.awt.Color(0, 153, 51));
+    }//GEN-LAST:event_pnl_btnGirarMouseReleased
+
+    private void pnl_btnApostaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_btnApostaMousePressed
+        pnl_btnAposta.setBackground(new java.awt.Color(0, 102, 51));
+    }//GEN-LAST:event_pnl_btnApostaMousePressed
+
+    private void pnl_btnApostaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_btnApostaMouseReleased
+        pnl_btnAposta.setBackground(new java.awt.Color(0, 153, 51));
+    }//GEN-LAST:event_pnl_btnApostaMouseReleased
+
+    private void pnl_btnApostaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_btnApostaMouseClicked
+        if(aposta == 5){
+            aposta = 1;
+        }else{
+            aposta += 2;
+        }
+        tf_aposta.setText(""+aposta);
+    }//GEN-LAST:event_pnl_btnApostaMouseClicked
+
+    private void pnl_btnGirarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_btnGirarMouseClicked
+        girar();
+        comprovar();
+    }//GEN-LAST:event_pnl_btnGirarMouseClicked
+
+    private void comprovar() {
+        if(n1 == n2 && n1 == n3){
+            if(aposta == 1){
+                
+            }else if(aposta == 3){
+                
+            }else{
+                
+            }
+        }
+    }
+    
+    public void girar(){
+        n1 = randNum();
+        n2 = randNum();
+        n3 = randNum();
+        canviaImg(1, n1);
+        canviaImg(2, n2);
+        canviaImg(3, n3);
+    }
+    
+    public void canviaImg(int pos, int n){
+        switch(n){
+            case 1:
+                if(pos == 1){
+                    lbl_img1.setIcon(resizeImg("Cherries",118,118));
+                }else if(pos == 2){
+                    lbl_img2.setIcon(resizeImg("Cherries",118,118));
+                }else{
+                    lbl_img3.setIcon(resizeImg("Cherries",118,118));
+                }
+                break;
+            case 2:
+                if(pos == 1){
+                    lbl_img1.setIcon(resizeImg("Plum",118,118));
+                }else if(pos == 2){
+                    lbl_img2.setIcon(resizeImg("Plum",118,118));
+                }else{
+                    lbl_img3.setIcon(resizeImg("Plum",118,118));
+                }
+                break;
+            case 3:
+                if(pos == 1){
+                    lbl_img1.setIcon(resizeImg("Grapes",118,118));
+                }else if(pos == 2){
+                    lbl_img2.setIcon(resizeImg("Grapes",118,118));
+                }else{
+                    lbl_img3.setIcon(resizeImg("Grapes",118,118));
+                }
+                break;
+            case 4:
+                if(pos == 1){
+                    lbl_img1.setIcon(resizeImg("Orange",118,118));
+                }else if(pos == 2){
+                    lbl_img2.setIcon(resizeImg("Orange",118,118));
+                }else{
+                    lbl_img3.setIcon(resizeImg("Orange",118,118));
+                }
+                break;
+            case 5:
+                if(pos == 1){
+                    lbl_img1.setIcon(resizeImg("Lemon",118,118));
+                }else if(pos == 2){
+                    lbl_img2.setIcon(resizeImg("Lemon",118,118));
+                }else{
+                    lbl_img3.setIcon(resizeImg("Lemon",118,118));
+                }
+                break;
+            case 6:
+                if(pos == 1){
+                    lbl_img1.setIcon(resizeImg("Bell",118,118));
+                }else if(pos == 2){
+                    lbl_img2.setIcon(resizeImg("Bell",118,118));
+                }else{
+                    lbl_img3.setIcon(resizeImg("Bell",118,118));
+                }
+                break;
+            case 7:
+                if(pos == 1){
+                    lbl_img1.setIcon(resizeImg("Jackpot",118,118));
+                }else if(pos == 2){
+                    lbl_img2.setIcon(resizeImg("Jackpot",118,118));
+                }else{
+                    lbl_img3.setIcon(resizeImg("Jackpot",118,118));
+                }
+                break;
+            case 8:
+                if(pos == 1){
+                    lbl_img1.setIcon(resizeImg("Seven",118,118));
+                }else if(pos == 2){
+                    lbl_img2.setIcon(resizeImg("Seven",118,118));
+                }else{
+                    lbl_img3.setIcon(resizeImg("Seven",118,118));
+                }
+                break;
+        }
+    }
+    
+    public int randNum(){
+        return ThreadLocalRandom.current().nextInt(1, 8 + 1);
+    }
+    
     public static void main(String args[]) {
 
         /* Create and display the form */
@@ -527,6 +850,10 @@ public class Maquina extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lbl_aposta;
+    private javax.swing.JLabel lbl_btnAposta;
+    private javax.swing.JLabel lbl_btnAposta1;
+    private javax.swing.JLabel lbl_btnGirar;
     private javax.swing.JLabel lbl_close;
     private javax.swing.JLabel lbl_credits;
     private javax.swing.JLabel lbl_img1;
@@ -534,6 +861,9 @@ public class Maquina extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_img3;
     private javax.swing.JLabel lbl_premi;
     private javax.swing.JLabel lbl_reserva;
+    private javax.swing.JPanel pnl_btnAposta;
+    private javax.swing.JPanel pnl_btnAposta1;
+    private javax.swing.JPanel pnl_btnGirar;
     private javax.swing.JPanel pnl_close;
     private javax.swing.JPanel pnl_fons;
     private javax.swing.JPanel pnl_fons1;
@@ -541,11 +871,15 @@ public class Maquina extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_fons3;
     private javax.swing.JPanel pnl_inferior;
     private javax.swing.JPanel pnl_superior;
+    private javax.swing.JTextField tf_aposta;
     private javax.swing.JTextField tf_credits;
     private javax.swing.JTextField tf_price;
     private javax.swing.JTextField tf_relleno;
     private javax.swing.JTextField tf_relleno2;
     private javax.swing.JTextField tf_relleno3;
+    private javax.swing.JTextField tf_relleno4;
+    private javax.swing.JTextField tf_relleno5;
+    private javax.swing.JTextField tf_relleno6;
     private javax.swing.JTextField tf_reserva;
     // End of variables declaration//GEN-END:variables
 
