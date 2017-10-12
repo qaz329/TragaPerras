@@ -5,6 +5,15 @@
  */
 package tragaperras;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author joane
@@ -13,10 +22,11 @@ public class Maquina extends javax.swing.JFrame {
 
     public int x = 0;
     public int y = 0;
-    
+
     public Maquina() {
         this.setUndecorated(true);
         initComponents();
+
     }
 
     /**
@@ -35,12 +45,28 @@ public class Maquina extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         pnl_inferior = new javax.swing.JPanel();
+        tf_price = new javax.swing.JTextField();
+        tf_credits = new javax.swing.JTextField();
+        tf_reserva = new javax.swing.JTextField();
+        tf_relleno2 = new javax.swing.JTextField();
+        tf_relleno = new javax.swing.JTextField();
+        tf_relleno3 = new javax.swing.JTextField();
+        lbl_reserva = new javax.swing.JLabel();
+        lbl_premi = new javax.swing.JLabel();
+        lbl_credits = new javax.swing.JLabel();
+        pnl_fons = new javax.swing.JPanel();
+        pnl_fons1 = new javax.swing.JPanel();
+        lbl_img1 = new javax.swing.JLabel();
+        pnl_fons3 = new javax.swing.JPanel();
+        lbl_img3 = new javax.swing.JLabel();
+        pnl_fons2 = new javax.swing.JPanel();
+        lbl_img2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(650, 800));
 
         pnl_superior.setBackground(new java.awt.Color(0, 153, 51));
-        pnl_superior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 0), 2));
+        pnl_superior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 0)));
         pnl_superior.setForeground(new java.awt.Color(0, 153, 51));
         pnl_superior.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -86,7 +112,7 @@ public class Maquina extends javax.swing.JFrame {
         jTextField1.setForeground(new java.awt.Color(204, 0, 0));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField1.setText("0");
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 0), 3));
+        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 0), 2));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -111,7 +137,7 @@ public class Maquina extends javax.swing.JFrame {
                 .addGroup(pnl_superiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                 .addGroup(pnl_superiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnl_close, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_superiorLayout.createSequentialGroup()
@@ -133,17 +159,256 @@ public class Maquina extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        pnl_inferior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200), 2));
+        pnl_inferior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
+
+        tf_price.setEditable(false);
+        tf_price.setBackground(new java.awt.Color(0, 0, 0));
+        tf_price.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_price.setForeground(new java.awt.Color(204, 0, 0));
+        tf_price.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_price.setText("0");
+        tf_price.setBorder(null);
+        tf_price.setFocusable(false);
+        tf_price.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_priceActionPerformed(evt);
+            }
+        });
+
+        tf_credits.setEditable(false);
+        tf_credits.setBackground(new java.awt.Color(0, 0, 0));
+        tf_credits.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_credits.setForeground(new java.awt.Color(204, 0, 0));
+        tf_credits.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tf_credits.setText("0");
+        tf_credits.setBorder(null);
+        tf_credits.setFocusable(false);
+        tf_credits.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_creditsActionPerformed(evt);
+            }
+        });
+
+        tf_reserva.setEditable(false);
+        tf_reserva.setBackground(new java.awt.Color(0, 0, 0));
+        tf_reserva.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_reserva.setForeground(new java.awt.Color(204, 0, 0));
+        tf_reserva.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tf_reserva.setText("0");
+        tf_reserva.setBorder(null);
+        tf_reserva.setFocusable(false);
+        tf_reserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_reservaActionPerformed(evt);
+            }
+        });
+
+        tf_relleno2.setEditable(false);
+        tf_relleno2.setBackground(new java.awt.Color(0, 0, 0));
+        tf_relleno2.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_relleno2.setForeground(new java.awt.Color(204, 0, 0));
+        tf_relleno2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tf_relleno2.setBorder(null);
+        tf_relleno2.setFocusable(false);
+        tf_relleno2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_relleno2ActionPerformed(evt);
+            }
+        });
+
+        tf_relleno.setEditable(false);
+        tf_relleno.setBackground(new java.awt.Color(0, 0, 0));
+        tf_relleno.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_relleno.setForeground(new java.awt.Color(204, 0, 0));
+        tf_relleno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tf_relleno.setBorder(null);
+        tf_relleno.setFocusable(false);
+        tf_relleno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_rellenoActionPerformed(evt);
+            }
+        });
+
+        tf_relleno3.setEditable(false);
+        tf_relleno3.setBackground(new java.awt.Color(0, 0, 0));
+        tf_relleno3.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_relleno3.setForeground(new java.awt.Color(204, 0, 0));
+        tf_relleno3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_relleno3.setBorder(null);
+        tf_relleno3.setFocusable(false);
+        tf_relleno3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_relleno3ActionPerformed(evt);
+            }
+        });
+
+        lbl_reserva.setFont(new java.awt.Font("Balls on the rampage", 0, 42)); // NOI18N
+        lbl_reserva.setForeground(new java.awt.Color(0, 153, 51));
+        lbl_reserva.setText("Reserva");
+        lbl_reserva.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        lbl_premi.setFont(new java.awt.Font("Balls on the rampage", 0, 42)); // NOI18N
+        lbl_premi.setForeground(new java.awt.Color(0, 153, 51));
+        lbl_premi.setText("Premi");
+        lbl_premi.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        lbl_credits.setFont(new java.awt.Font("Balls on the rampage", 0, 42)); // NOI18N
+        lbl_credits.setForeground(new java.awt.Color(0, 153, 51));
+        lbl_credits.setText("Credits");
+        lbl_credits.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        pnl_fons.setBackground(new java.awt.Color(51, 51, 51));
+
+        pnl_fons1.setBackground(new java.awt.Color(255, 204, 0));
+
+        lbl_img1.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_img1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_img1.setIcon(resizeImg("Cherries",118,118));
+        lbl_img1.setFocusable(false);
+        lbl_img1.setOpaque(true);
+
+        javax.swing.GroupLayout pnl_fons1Layout = new javax.swing.GroupLayout(pnl_fons1);
+        pnl_fons1.setLayout(pnl_fons1Layout);
+        pnl_fons1Layout.setHorizontalGroup(
+            pnl_fons1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_fons1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_img1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnl_fons1Layout.setVerticalGroup(
+            pnl_fons1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_fons1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lbl_img1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        pnl_fons3.setBackground(new java.awt.Color(255, 204, 0));
+
+        lbl_img3.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_img3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_img3.setIcon(resizeImg("Cherries",118,118));
+        lbl_img3.setFocusable(false);
+        lbl_img3.setOpaque(true);
+
+        javax.swing.GroupLayout pnl_fons3Layout = new javax.swing.GroupLayout(pnl_fons3);
+        pnl_fons3.setLayout(pnl_fons3Layout);
+        pnl_fons3Layout.setHorizontalGroup(
+            pnl_fons3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_fons3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_img3, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnl_fons3Layout.setVerticalGroup(
+            pnl_fons3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_fons3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lbl_img3, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        pnl_fons2.setBackground(new java.awt.Color(255, 204, 0));
+
+        lbl_img2.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_img2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_img2.setIcon(resizeImg("Cherries",118,118));
+        lbl_img2.setFocusable(false);
+        lbl_img2.setOpaque(true);
+
+        javax.swing.GroupLayout pnl_fons2Layout = new javax.swing.GroupLayout(pnl_fons2);
+        pnl_fons2.setLayout(pnl_fons2Layout);
+        pnl_fons2Layout.setHorizontalGroup(
+            pnl_fons2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_fons2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_img2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnl_fons2Layout.setVerticalGroup(
+            pnl_fons2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_fons2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lbl_img2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnl_fonsLayout = new javax.swing.GroupLayout(pnl_fons);
+        pnl_fons.setLayout(pnl_fonsLayout);
+        pnl_fonsLayout.setHorizontalGroup(
+            pnl_fonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_fonsLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(pnl_fons1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(pnl_fons2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(pnl_fons3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
+        );
+        pnl_fonsLayout.setVerticalGroup(
+            pnl_fonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_fonsLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(pnl_fonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnl_fons2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnl_fons3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnl_fons1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout pnl_inferiorLayout = new javax.swing.GroupLayout(pnl_inferior);
         pnl_inferior.setLayout(pnl_inferiorLayout);
         pnl_inferiorLayout.setHorizontalGroup(
             pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 646, Short.MAX_VALUE)
+            .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                                .addComponent(lbl_reserva)
+                                .addGap(22, 22, 22)
+                                .addComponent(lbl_premi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbl_credits))
+                            .addComponent(tf_relleno3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                                .addComponent(tf_relleno, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(tf_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(tf_price, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(tf_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(tf_relleno2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(pnl_fons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnl_inferiorLayout.setVerticalGroup(
             pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
+            .addGroup(pnl_inferiorLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_premi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addGroup(pnl_inferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_price, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_credits, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_relleno2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_relleno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(tf_relleno3, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnl_fons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,13 +429,25 @@ public class Maquina extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private ImageIcon resizeImg(String image, int width, int height){
+        Image img = null;
+        try {
+            img = ImageIO.read(new File("src/icons/"+image+".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Image dimg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(dimg);
+        return imageIcon;
+    }
     private void pnl_superiorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_superiorMousePressed
         x = evt.getX();
         y = evt.getY();
     }//GEN-LAST:event_pnl_superiorMousePressed
 
     private void pnl_superiorMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_superiorMouseDragged
-        this.setLocation (evt.getXOnScreen() - x, evt.getYOnScreen() - y);
+        this.setLocation(evt.getXOnScreen() - x, evt.getYOnScreen() - y);
     }//GEN-LAST:event_pnl_superiorMouseDragged
 
     private void pnl_closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_closeMouseClicked
@@ -181,12 +458,35 @@ public class Maquina extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void tf_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_priceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_priceActionPerformed
+
+    private void tf_creditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_creditsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_creditsActionPerformed
+
+    private void tf_reservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_reservaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_reservaActionPerformed
+
+    private void tf_relleno2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_relleno2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_relleno2ActionPerformed
+
+    private void tf_rellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_rellenoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_rellenoActionPerformed
+
+    private void tf_relleno3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_relleno3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_relleno3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
 
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -200,8 +500,25 @@ public class Maquina extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbl_close;
+    private javax.swing.JLabel lbl_credits;
+    private javax.swing.JLabel lbl_img1;
+    private javax.swing.JLabel lbl_img2;
+    private javax.swing.JLabel lbl_img3;
+    private javax.swing.JLabel lbl_premi;
+    private javax.swing.JLabel lbl_reserva;
     private javax.swing.JPanel pnl_close;
+    private javax.swing.JPanel pnl_fons;
+    private javax.swing.JPanel pnl_fons1;
+    private javax.swing.JPanel pnl_fons2;
+    private javax.swing.JPanel pnl_fons3;
     private javax.swing.JPanel pnl_inferior;
     private javax.swing.JPanel pnl_superior;
+    private javax.swing.JTextField tf_credits;
+    private javax.swing.JTextField tf_price;
+    private javax.swing.JTextField tf_relleno;
+    private javax.swing.JTextField tf_relleno2;
+    private javax.swing.JTextField tf_relleno3;
+    private javax.swing.JTextField tf_reserva;
     // End of variables declaration//GEN-END:variables
+
 }
