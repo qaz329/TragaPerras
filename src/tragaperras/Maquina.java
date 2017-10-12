@@ -5,10 +5,12 @@
  */
 package tragaperras;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -108,7 +110,7 @@ public class Maquina extends javax.swing.JFrame {
 
         jTextField1.setEditable(false);
         jTextField1.setBackground(new java.awt.Color(0, 0, 0));
-        jTextField1.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        jTextField1.setFont(getFont("DIGITAL",48));
         jTextField1.setForeground(new java.awt.Color(204, 0, 0));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField1.setText("0");
@@ -119,11 +121,11 @@ public class Maquina extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Balls on the rampage", 2, 70)); // NOI18N
+        jLabel1.setFont(getFont("BALLS",70));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("el Tesoro");
 
-        jLabel2.setFont(new java.awt.Font("Balls on the rampage", 2, 70)); // NOI18N
+        jLabel2.setFont(getFont("BALLS",70));
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("de mani");
@@ -150,20 +152,30 @@ public class Maquina extends javax.swing.JFrame {
                 .addComponent(pnl_close, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addGap(0, 42, Short.MAX_VALUE))
             .addGroup(pnl_superiorLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(0, 9, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnl_inferior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
+        pnl_inferior.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                pnl_inferiorMouseDragged(evt);
+            }
+        });
+        pnl_inferior.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnl_inferiorMousePressed(evt);
+            }
+        });
 
         tf_price.setEditable(false);
         tf_price.setBackground(new java.awt.Color(0, 0, 0));
-        tf_price.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_price.setFont(getFont("DIGITAL",48));
         tf_price.setForeground(new java.awt.Color(204, 0, 0));
         tf_price.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tf_price.setText("0");
@@ -177,7 +189,7 @@ public class Maquina extends javax.swing.JFrame {
 
         tf_credits.setEditable(false);
         tf_credits.setBackground(new java.awt.Color(0, 0, 0));
-        tf_credits.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_credits.setFont(getFont("DIGITAL",48));
         tf_credits.setForeground(new java.awt.Color(204, 0, 0));
         tf_credits.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tf_credits.setText("0");
@@ -191,7 +203,7 @@ public class Maquina extends javax.swing.JFrame {
 
         tf_reserva.setEditable(false);
         tf_reserva.setBackground(new java.awt.Color(0, 0, 0));
-        tf_reserva.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_reserva.setFont(getFont("DIGITAL",48));
         tf_reserva.setForeground(new java.awt.Color(204, 0, 0));
         tf_reserva.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         tf_reserva.setText("0");
@@ -205,7 +217,7 @@ public class Maquina extends javax.swing.JFrame {
 
         tf_relleno2.setEditable(false);
         tf_relleno2.setBackground(new java.awt.Color(0, 0, 0));
-        tf_relleno2.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_relleno2.setFont(getFont("DIGITAL",48));
         tf_relleno2.setForeground(new java.awt.Color(204, 0, 0));
         tf_relleno2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tf_relleno2.setBorder(null);
@@ -218,7 +230,7 @@ public class Maquina extends javax.swing.JFrame {
 
         tf_relleno.setEditable(false);
         tf_relleno.setBackground(new java.awt.Color(0, 0, 0));
-        tf_relleno.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_relleno.setFont(getFont("DIGITAL",48));
         tf_relleno.setForeground(new java.awt.Color(204, 0, 0));
         tf_relleno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tf_relleno.setBorder(null);
@@ -231,7 +243,7 @@ public class Maquina extends javax.swing.JFrame {
 
         tf_relleno3.setEditable(false);
         tf_relleno3.setBackground(new java.awt.Color(0, 0, 0));
-        tf_relleno3.setFont(new java.awt.Font("Digital-7 Italic", 0, 48)); // NOI18N
+        tf_relleno3.setFont(getFont("DIGITAL",48));
         tf_relleno3.setForeground(new java.awt.Color(204, 0, 0));
         tf_relleno3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tf_relleno3.setBorder(null);
@@ -242,17 +254,17 @@ public class Maquina extends javax.swing.JFrame {
             }
         });
 
-        lbl_reserva.setFont(new java.awt.Font("Balls on the rampage", 0, 42)); // NOI18N
+        lbl_reserva.setFont(getFont("BALLS",42,0));
         lbl_reserva.setForeground(new java.awt.Color(0, 153, 51));
         lbl_reserva.setText("Reserva");
         lbl_reserva.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        lbl_premi.setFont(new java.awt.Font("Balls on the rampage", 0, 42)); // NOI18N
+        lbl_premi.setFont(getFont("BALLS",42,0));
         lbl_premi.setForeground(new java.awt.Color(0, 153, 51));
         lbl_premi.setText("Premi");
         lbl_premi.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        lbl_credits.setFont(new java.awt.Font("Balls on the rampage", 0, 42)); // NOI18N
+        lbl_credits.setFont(getFont("BALLS",42,0));
         lbl_credits.setForeground(new java.awt.Color(0, 153, 51));
         lbl_credits.setText("Credits");
         lbl_credits.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -441,6 +453,26 @@ public class Maquina extends javax.swing.JFrame {
         ImageIcon imageIcon = new ImageIcon(dimg);
         return imageIcon;
     }
+    
+    public Font getFont(String font, int pt){
+        Font f = null;
+        try{
+            f = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("src/fonts/"+font+".ttf"))).deriveFont(Font.ITALIC, pt);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return f;
+    }
+    public Font getFont(String font, int pt, int t){
+        Font f = null;
+        try{
+            f = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("src/fonts/"+font+".ttf"))).deriveFont(Font.PLAIN, pt);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return f;
+    }
+    
     private void pnl_superiorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_superiorMousePressed
         x = evt.getX();
         y = evt.getY();
@@ -455,36 +487,32 @@ public class Maquina extends javax.swing.JFrame {
     }//GEN-LAST:event_pnl_closeMouseClicked
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void tf_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_priceActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_tf_priceActionPerformed
 
     private void tf_creditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_creditsActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_tf_creditsActionPerformed
 
     private void tf_reservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_reservaActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_tf_reservaActionPerformed
 
     private void tf_relleno2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_relleno2ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_tf_relleno2ActionPerformed
 
     private void tf_rellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_rellenoActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_tf_rellenoActionPerformed
 
     private void tf_relleno3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_relleno3ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_tf_relleno3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void pnl_inferiorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_inferiorMousePressed
+    }//GEN-LAST:event_pnl_inferiorMousePressed
+
+    private void pnl_inferiorMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_inferiorMouseDragged
+    }//GEN-LAST:event_pnl_inferiorMouseDragged
+
     public static void main(String args[]) {
 
         /* Create and display the form */
